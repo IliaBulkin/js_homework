@@ -1,8 +1,15 @@
 {
-  "dependencies": {
-    "moment": "^2.30.1"
-  },
+  "name": "js",
+  "version": "1.0.0",
+  "main": "server.js",
   "scripts": {
-    "start": "node script.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.0"
   }
 }
