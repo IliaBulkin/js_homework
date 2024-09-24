@@ -1,0 +1,12 @@
+.post {
+    width: 600px;
+    height: 200px;
+    background-color: pink;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+body {
+    display: grid;
+    place-items: center;
+}
