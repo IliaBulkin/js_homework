@@ -1,3 +1,4 @@
+const { cache } = require('ejs');
 const express = require('express');
 const app = express()
 const path = require('path')
@@ -38,6 +39,9 @@ app.get('/posts', (req, res) => {
     res.render('posts', context)
 })
 
+app.get('/user/', (req, res) => {
+    res.render('user', cache)
+})
 
 const PORT = 8000;
 app.listen(PORT, () => {
