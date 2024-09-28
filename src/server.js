@@ -17,7 +17,7 @@ function getCurrentDate() {
 app.get('/', (req, res) => {
     // res.sendFile(path.resolve(__dirname, "./templates/index.ejs"))
     const context = {
-        title: 'aboba'
+        title: 'aboba2'
      }
     res.render('index', context)
 })
