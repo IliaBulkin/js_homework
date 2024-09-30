@@ -1,0 +1,15 @@
+.id {
+    width: 300px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+body {
+    display: grid;
+    place-items: center;
+}
