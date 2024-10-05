@@ -14,6 +14,7 @@ function getCurrentDate() {
     return new Date().toLocaleString(); 
 }
 
+app.use(express.json())
 
 app.get('/', (req, res) => {
     // res.sendFile(path.resolve(__dirname, "./templates/index.ejs"))
@@ -26,7 +27,6 @@ app.get('/', (req, res) => {
 
 app.get('/date/', (req, res) => {
     const currentDate = getCurrentDate();
-    console.log(currentDate); 
     res.send(`${currentDate}`); 
 });
 
@@ -49,9 +49,9 @@ app.get('/user/', (req, res) => {
 
 app.get('/comments/', (req, res) => {
     const context = {
-        comments: [{title: 'title1', message: 'aboba1', author: 'author1', authorImg: '/static/authorImg1.jpg'}, 
-                    {title: 'title2', message: 'aboba2', author: 'author2', authorImg: '/static/authorImg1.jpg'},
-                    {title: 'title3', message: 'aboba3', author: 'author3', authorImg: '/static/authorImg1.jpg'},]
+        comments: [{title: 'title1', message: 'aboba1', author: 'author1', authorImg: '/static/img/authorImg1.jpg'}, 
+                    {title: 'title2', message: 'aboba2', author: 'author2', authorImg: '/static/img/authorImg1.jpg'},
+                    {title: 'title3', message: 'aboba3', author: 'author3', authorImg: '/static/img/authorImg1.jpg'},]
     }
     res.render('comments', context)
 })
@@ -105,7 +105,7 @@ app.get('/postss', (req, res) => {
 })
 
 app.get('/post/:id', (req, res) => {
-    console.log(req.params) // params - параметры(в данном случае id)
+    // console.log(req.params) // params - параметры(в данном случае id)
     const context = {
         post: post_for_page[req.params.id-1]
     }
@@ -118,6 +118,14 @@ app.get('/post/:id', (req, res) => {
         res.render('error', cache)
     }
     
+})
+
+
+app.post('/post/create', (req, res) => {
+    const data = req.body
+    console.log(data)
+    post_for_page.push(data)
+    res.send('doing this shit bro')
 })
 
 

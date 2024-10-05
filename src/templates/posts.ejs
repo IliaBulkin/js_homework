@@ -3,7 +3,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="static/posts.css">
+    <link rel="stylesheet" href="static/css/posts.css">
+    <script defer src="static/js/posts.js"></script>
 </head>
 <body>
     <% posts.forEach((posts) => { %>
@@ -12,5 +13,6 @@
             <p><%= posts.author%></p>
         </div>
     <% }) %>
+    <button id='button' type="button">create post aboba</button>
 </body>
 </html>
