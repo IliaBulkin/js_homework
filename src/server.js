@@ -30,13 +30,14 @@ app.get('/date/', (req, res) => {
     res.send(`${currentDate}`); 
 });
 
+posts3 = [ {name: 'post1', author: 'Author1 '}, 
+    {name: 'post2', author: 'Author2'}, 
+    {name: 'post3', author: 'Author3'}, 
+    {name: 'post4', author: 'Author4'}]
 
 app.get('/posts', (req, res) => {
     const context = {
-        posts: [ {name: 'post1', author: 'Author1 '}, 
-                {name: 'post2', author: 'Author2'}, 
-                {name: 'post3', author: 'Author3'}, 
-                {name: 'post4', author: 'Author4'}]
+        posts: posts3
     }
     res.render('posts', context)
 })
@@ -124,7 +125,7 @@ app.get('/post/:id', (req, res) => {
 app.post('/post/create', (req, res) => {
     const data = req.body
     console.log(data)
-    post_for_page.push(data)
+    posts3.push(data)
     res.send('doing this shit bro')
 })
 

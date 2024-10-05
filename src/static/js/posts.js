@@ -5,8 +5,8 @@ button.addEventListener('click', () => {
         method: 'POST',
         body: JSON.stringify({
             name: 'new name',
-            description: 'new description',
-            date: 'new date',
+            // description: 'new description',
+            // date: 'new date',
             author: 'new author'
         }),
         headers: {
