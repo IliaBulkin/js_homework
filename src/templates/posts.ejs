@@ -7,10 +7,10 @@
     <script defer src="static/js/posts.js"></script>
 </head>
 <body>
-    <% posts.forEach((posts) => { %>
+    <% post.forEach((post) => { %>
         <div class="post">
-            <h2><%= posts.name %></h2>
-            <p><%= posts.author%></p>
+            <h2><%= post.name %></h2>
+            <p><%= post.author%></p>
         </div>
     <% }) %>
     <button id='button' type="button">create post aboba</button>
