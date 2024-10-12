@@ -31,17 +31,17 @@ const post_for_page = [
     }
 ]
 
-function getAllPosts(max) {
+function getAllPosts(max: number) {
     const context = {
         post: post_for_page
     }
     if (max <= post_for_page.length) {
-        context.post_for_page = post_for_page.slice(0, max)
+        context.post = post_for_page.slice(0, max)
     }
     return context
 }
 
-function getPostById(id) {
+function getPostById(id: number) {
     const context = {
         post: post_for_page[id-1]
     }
@@ -52,11 +52,16 @@ function getPostById(id) {
     }
 }
 
-function createPost(data) {
+let posts3 = [ {name: 'post1', author: 'Author1 '}, 
+    {name: 'post2', author: 'Author2'}, 
+    {name: 'post3', author: 'Author3'}, 
+    {name: 'post4', author: 'Author4'}]
+
+function createPost(data: any) {
     posts3.push(data)
 }
 
-module.exports = {
+export = {
     getAllPosts: getAllPosts,
     getPostById: getPostById,
     createPost: createPost

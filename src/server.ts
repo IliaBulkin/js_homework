@@ -1,7 +1,10 @@
+import express, { Request, Response } from 'express';
+import path from 'path';
+
 const { cache } = require('ejs');
-const express = require('express');
+// const express = require('express');
 const app = express()
-const path = require('path')
+// const path = require('path')
 
 
 app.set('view engine', 'ejs')
@@ -18,7 +21,7 @@ app.use(express.json())
 
 app.use('/post/', require('./routers/postRouter'))
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
     // res.sendFile(path.resolve(__dirname, "./templates/index.ejs"))
     const context = {
         title: 'aboba'
@@ -32,10 +35,7 @@ app.get('/', (req, res) => {
 //     res.send(`${currentDate}`); 
 // });
 
-posts3 = [ {name: 'post1', author: 'Author1 '}, 
-    {name: 'post2', author: 'Author2'}, 
-    {name: 'post3', author: 'Author3'}, 
-    {name: 'post4', author: 'Author4'}]
+
 
 // app.get('/posts', (req, res) => {
 //     const context = {

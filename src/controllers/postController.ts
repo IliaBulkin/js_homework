@@ -1,11 +1,13 @@
+import express, { Request, Response } from 'express';
+
 const postService = require('../services/postService')
 
-function getAllPosts(req, res) {
+function getAllPosts(req: Request, res: Response) {
     const context = postService.getAllPosts()
     res.render('posts', context)
 }
 
-function getPostById(req, res) {
+function getPostById(req: Request, res: Response) {
     // const context = {
     //     post: post_for_page[req.params.id-1]
     // }
@@ -18,13 +20,13 @@ function getPostById(req, res) {
     }
 }
 
-function createPost(req, res) {
+function createPost(req: Request, res: Response) {
     const data = req.body
     postService.createPost(data)
     res.send('doing this shit bro')
 }
 
-module.exports = {
+export = {
     getAllPosts: getAllPosts,
     getPostById: getPostById,
     createPost: createPost
