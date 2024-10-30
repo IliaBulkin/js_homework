@@ -1,13 +1,14 @@
-const db = require('../db/dev.db');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
-async function findUserByEmail(email: any) {
+async function findUserByEmail(email: string) {
     try {
-        const user = await db('users').where({ email }).first();
-        if (user) {
-            return user;
-        } else {
-            return "Not Found";
-        }
+        const user = await prisma.user.findUnique({
+            where: {
+                email: email,
+            },
+        });
+        return user 
     } catch (error) {
         console.error('Database error:', error);
         throw new Error('Database query failed');
@@ -16,13 +17,27 @@ async function findUserByEmail(email: any) {
 
 async function createUser(userData: any) {
     try {
-        const [createdUser] = await db('users')
-            .insert(userData)
-            .returning(['id', 'username', 'email', 'role']); // чатгпт, честно
-        
-        return createdUser;
+        const { username, email, password, role } = userData;
+
+        const createdUser = await prisma.user.create({
+            data: {
+                username,
+                email,
+                password, 
+                role,
+            },
+        });
+
+        return createdUser; 
     } catch (error) {
         console.error('Error creating user:', error);
         throw new Error('Failed to create user');
     }
 }
+
+const userRepository = {
+    findUserByEmail: findUserByEmail,
+    createUser: createUser
+}
+
+export default userRepository

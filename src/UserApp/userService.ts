@@ -1,12 +1,11 @@
-const userRepository = require('../repositories/userRepository');
+import userRepository from '../UserApp/userRepository';
 
-async function login(email: any, password: any) {
-    const user = await userRepository.findByEmail(email);
+async function login(email: string, password: any) {
+    const user = await userRepository.findUserByEmail(email);
     if (user) {
         const { password, ...userWithoutPassword } = user;
         return userWithoutPassword;
     }
-    return null;
 }
 
 async function register(userData: any) {

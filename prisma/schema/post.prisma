@@ -1,8 +1,8 @@
 model Post {
-  id       Int        @id @default(autoincrement()) 
+  id       Int       @id @default(autoincrement())
   name     String
   author   String?
-  userId   Int        // ссылка на User
-  user     User       @relation("UserPosts", fields: [userId], references: [id]) // обратная связь с User
-  comments Comment[]  // связь с моделью Comment
+  userId   Int
+  comments Comment[]
+  user     User      @relation("UserPosts", fields: [userId], references: [id])
 }

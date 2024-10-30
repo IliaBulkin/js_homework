@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from 'express'
-const authService = require('../services/authService');
+import userService from '../UserApp/userService';
 
 function login(req: Request, res: Response){
     res.render('login')
@@ -10,14 +10,15 @@ function registration(req: Request, res: Response){
     res.render('registration')
 }
 
-async function authLogin(req: Request, res: Response) {
+async function authLogin(req: any, res: any) {
     try {
         const { username, password } = req.body;
-        const user = await authService.login(username, password);
+        const user = await userService.login(username, password);
         
         if (user) {
             res.cookie('user', JSON.stringify(user));
             return res.status(200).json({ message: 'Login successful', user });
+            
         } else {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
@@ -28,10 +29,10 @@ async function authLogin(req: Request, res: Response) {
 }
 
 
-async function authRegistration(req: Request, res: Response) {
+async function authRegistration(req: any, res: any) {
     try {
         const { email, password, username } = req.body;
-        const registrationResult = await authService.register({ email, password, username });
+        const registrationResult = await userService.register({ email, password, username });
         if (registrationResult === "User exists") {
             return res.status(409).json({ message: 'User already exists' });
         } else if (registrationResult) {

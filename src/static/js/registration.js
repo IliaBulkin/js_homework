@@ -1,6 +1,6 @@
 form.addEventListener('submit', (event)=>{
     event.preventDefault()
-    fetch('', {
+    fetch('/registration', {
         method: 'POST',
         body: JSON.stringify({
             username: username.value,

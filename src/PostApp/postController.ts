@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 
-const postService = require('../services/postService')
+const postService = require('../PostApp/postService')
 
 function getAllPosts(req: Request, res: Response) {
     const context = postService.getAllPosts()

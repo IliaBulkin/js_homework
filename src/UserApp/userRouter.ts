@@ -4,8 +4,10 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.post('/login', userControllers.registration);
+router.get('/registration', userControllers.registration); 
 router.get('/login', userControllers.login);
-router.post('/post/create', authMiddleware); 
+router.post('/login', userControllers.authLogin); 
+router.post('/registration', userControllers.authRegistration);
+router.post('/post/create', authMiddleware);
 
-export default router;
+module.exports = router
