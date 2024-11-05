@@ -1,6 +1,6 @@
 import userRepository from '../UserApp/userRepository';
 
-async function login(email: string, password: any) {
+async function login(email: any, password: any) {
     const user = await userRepository.findUserByEmail(email);
     if (user) {
         const { password, ...userWithoutPassword } = user;
@@ -8,10 +8,11 @@ async function login(email: string, password: any) {
     }
 }
 
+
 async function register(userData: any) {
     const existingUser = await userRepository.findUserByEmail(userData.email);
 
-    if (existingUser !== "Not Found") {
+    if (await userRepository.findUserByEmail(userData.email) !== "Not Found") {
         return "User exists";
     }
     const newUser = {

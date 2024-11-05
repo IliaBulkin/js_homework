@@ -8,6 +8,6 @@ router.get('/registration', userControllers.registration);
 router.get('/login', userControllers.login);
 router.post('/login', userControllers.authLogin); 
 router.post('/registration', userControllers.authRegistration);
-router.post('/post/create', authMiddleware);
+router.post('/login', authMiddleware);
 
-module.exports = router
+export default router
