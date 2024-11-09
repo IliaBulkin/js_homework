@@ -1,5 +1,7 @@
 import express, { Express, Request, Response } from 'express'
 import userService from '../UserApp/userService';
+import { SECRET_KEY } from '../config/token'
+import { sign } from 'jsonwebtoken'
 
 function login(req: Request, res: Response){
     res.render('login')
@@ -28,7 +30,6 @@ async function authLogin(req: any, res: any) {
     }
 }
 
-
 async function authRegistration(req: any, res: any) {
     try {
         const { email, password, username } = req.body;
@@ -45,6 +46,17 @@ async function authRegistration(req: any, res: any) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
+}
+
+async function authUser(req: Request, res: Response){
+    const data = req.body
+    const user = await userService.authUser(data.email, data.password)
+    if (user == 'error'){
+        res.send('error')
+        return 
+    }
+    const token = sign(user, SECRET_KEY, {expiresIn: '1h'})
+    res.cookie('token', token)
 }
 
 const userController = {

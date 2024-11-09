@@ -8,7 +8,6 @@ async function login(email: any, password: any) {
     }
 }
 
-
 async function register(userData: any) {
     const existingUser = await userRepository.findUserByEmail(userData.email);
 
@@ -26,9 +25,23 @@ async function register(userData: any) {
     return createdUser;
 }
 
+async function authUser(email: string, password: string) {
+    let user = await userRepository.findUserByEmail(email);
+    if (!user){
+        return "error";
+    }
+
+    if (user.password != password){
+        return "error";
+    }
+
+    return user;
+}   
+
 const userService = {
     login: login,
-    register: register
+    register: register,
+    authUser: authUser
 }
 
 export default userService
