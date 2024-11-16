@@ -34,7 +34,7 @@ async function authRegistration(req: any, res: any) {
     try {
         const { email, password, username } = req.body;
         const registrationResult = await userService.register({ email, password, username });
-        if (registrationResult === "User exists") {
+        if (registrationResult.status === "error") {
             return res.status(409).json({ message: 'User already exists' });
         } else if (registrationResult) {
             res.cookie('user', JSON.stringify(registrationResult));

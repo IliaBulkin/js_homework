@@ -1,18 +1,36 @@
 import userRepository from '../UserApp/userRepository';
+import { Prisma } from "@prisma/client"
+
+interface IUser{
+    id: number,
+    username: string,
+    email: string,
+    password: string
+}
+
+interface IUserSucc{
+    status: 'success',
+    data: IUser
+}
+
+interface IUserErr{
+    status: 'error',
+    message: string
+}
+
 
 async function login(email: any, password: any) {
     const user = await userRepository.findUserByEmail(email);
     if (user) {
-        const { password, ...userWithoutPassword } = user;
-        return userWithoutPassword;
+        return user;
     }
 }
 
-async function register(userData: any) {
+async function register(userData: any): Promise< IUserErr | IUserSucc > {
     const existingUser = await userRepository.findUserByEmail(userData.email);
 
     if (await userRepository.findUserByEmail(userData.email) !== "Not Found") {
-        return "User exists";
+        return {status: "error", message: "User exists"};
     }
     const newUser = {
         username: userData.username,
@@ -21,8 +39,7 @@ async function register(userData: any) {
         role: userData.role
     };
     const createdUser = await userRepository.createUser(newUser);
-    const { password, email, username, role} = createdUser;
-    return createdUser;
+    return {status: "success", data: createdUser};
 }
 
 async function authUser(email: string, password: string) {
