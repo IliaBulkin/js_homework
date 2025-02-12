@@ -1,6 +1,9 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
+import postRouter from './PostApp/postRouter';
+import userRouter from './UserApp/userRouter';
+
 
 const { cache } = require('ejs');
 // const express = require('express');
@@ -19,8 +22,8 @@ function getCurrentDate() {
 
 app.use(express.json())
 
-app.use('/post/', require('./PostApp/postRouter'))
-app.use('', require('./UserApp/userRouter'))
+app.use('/post/', postRouter);
+app.use('', userRouter);
 
 app.get('/', (req: Request, res: Response) => {
     const context = {
