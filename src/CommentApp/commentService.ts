@@ -1,31 +1,9 @@
 import commentRepository from "./commentRepository"
 import { Prisma } from '@prisma/client'
+import { IError, ISuccess } from '../types/types'
+import { IComment } from './types'
 
-interface IComment {
-    id: number
-    contact: string
-    description: string
-    image?: string | null
-    postId: number
-    userId: number
-}
-
-interface ICommentSuccess {
-    status: 'success'
-    data: IComment
-}
-
-interface ICommentError {
-    status: 'error'
-    message: string
-}
-
-interface ICommentsSuccess {
-    status: 'success'
-    data: IComment[]
-}
-
-async function createComment(data: Prisma.CommentCreateInput): Promise<ICommentSuccess | ICommentError> {
+async function createComment(data: Prisma.CommentCreateInput): Promise<ISuccess<IComment> | IError> {
     try {
         const comment = await commentRepository.createComment(data)
         if (!comment) {
@@ -38,9 +16,9 @@ async function createComment(data: Prisma.CommentCreateInput): Promise<ICommentS
     }
 }
 
-async function getCommentsByPostId(postid: number): Promise<ICommentsSuccess | ICommentError> {
+async function getCommentsByPostId(postid: number): Promise<ISuccess<IComment[]> | IError> {
     try {
-        const comments = await commentRepository.getCommentsByPostId(postid)
+        const comments = await commentRepository.getCommentsByPostId(postid) as IComment[]
         if (!comments) {
             return { status: 'error', message: 'Comments not found' }
         }
