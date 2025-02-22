@@ -4,7 +4,6 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/registration', userControllers.registration); 
 router.get('/login', userControllers.login);
 router.post('/login', userControllers.authLogin); 
 router.post('/registration', userControllers.authRegistration);
