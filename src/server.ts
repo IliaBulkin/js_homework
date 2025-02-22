@@ -3,7 +3,9 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import postRouter from './PostApp/postRouter';
 import userRouter from './UserApp/userRouter';
-
+import postRouterApi from './PostApp/postRouterApi';
+import commentRouterApi from './CommentApp/commentRouterApi';
+import cors from 'cors'
 
 const { cache } = require('ejs');
 // const express = require('express');
@@ -21,6 +23,14 @@ function getCurrentDate() {
 }
 
 app.use(express.json())
+
+app.use(cors({
+    origin: ['http://localhost:3000']
+}));
+
+
+app.use('/api/post/', postRouterApi)
+app.use('/api/comment/', commentRouterApi)
 
 app.use('/post/', postRouter);
 app.use('', userRouter);
