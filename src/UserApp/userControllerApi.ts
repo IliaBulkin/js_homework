@@ -29,10 +29,10 @@ async function authRegister(req: Request, res: Response){
     
 }
 
-const userController = {
+const userControllerApi = {
     authLogin: authLogin,
     authRegister: authRegister
 }
 
 
-export default userController
+export default userControllerApi
