@@ -1,1 +1,1 @@
-export const SECRET_KEY = 'aboba'
+export const SECRET_KEY = process.env.SECRET_KEY ? process.env.SECRET_KEY : 'ne aboba'

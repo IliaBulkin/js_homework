@@ -9,6 +9,7 @@ const router = Router();
 // router.post('/login', userControllers.authLogin); 
 router.get('/login', userControllerApi.authLogin)
 router.get('/login', userControllerApi.authRegister)
+router.get('/me', authMiddleware)
 // router.post('/registration', userControllers.authRegistration);
 // router.post('/login', authMiddleware);
 

@@ -5,7 +5,6 @@ import { sign } from 'jsonwebtoken'
 
 function login(req: Request, res: Response){
     res.render('login')
-
 }
 
 function registration(req: Request, res: Response){
@@ -51,12 +50,14 @@ async function authRegistration(req: any, res: any) {
 async function authUser(req: Request, res: Response){
     const data = req.body
     const user = await userService.authUser(data.email, data.password)
-    if (user == 'error'){
-        res.send('error')
-        return 
+
+    if (!user || user === 'error' || typeof user !== 'object' || !('data' in user)) {
+        return res.status(401).json({ message: 'Auth fail' });
     }
-    const token = sign(user, SECRET_KEY, {expiresIn: '1h'})
-    res.cookie('token', token)
+    
+    // const token = sign(user, SECRET_KEY, {expiresIn: '1h'})
+    res.cookie('token', user.data)
+    res.status(200).json({ message: 'auth', token: user.data });
 }
 
 const userController = {

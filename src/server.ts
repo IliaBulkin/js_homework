@@ -6,6 +6,7 @@ import userRouter from './UserApp/userRouter';
 import postRouterApi from './PostApp/postRouterApi';
 import commentRouterApi from './CommentApp/commentRouterApi';
 import cors from 'cors'
+import dotenv from 'dotenv'
 
 const { cache } = require('ejs');
 // const express = require('express');
@@ -28,6 +29,7 @@ app.use(cors({
     origin: ['http://localhost:8000']
 }));
 
+dotenv.config()
 
 app.use('/api/post/', postRouterApi)
 app.use('/api/comment/', commentRouterApi)

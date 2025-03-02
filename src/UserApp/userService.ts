@@ -2,6 +2,9 @@ import userRepository from '../UserApp/userRepository';
 import { Prisma } from "@prisma/client"
 import { IError, ISuccess } from '../types/types'
 import { IUser } from './types'
+import { sign } from "jsonwebtoken";
+import { SECRET_KEY } from "../config/token";
+import { compare, hash } from "bcrypt"
 
 async function login(email: any, password: any) {
     const user = await userRepository.findUserByEmail(email);
@@ -23,6 +26,7 @@ async function register(userData: any): Promise< IError | ISuccess<IUser> > {
         role: userData.role
     };
     const createdUser = await userRepository.createUser(newUser);
+    const hashedPassword = await hash(userData.password, 10)
     return {status: "success", data: createdUser};
 }
 
@@ -32,11 +36,16 @@ async function authUser(email: string, password: string) {
         return "error";
     }
 
-    if (user.password != password){
-        return "error";
-    }
+    // if (user.password != password){
+    //     return "error";
+    // }
 
-    return user;
+    // return user;
+    const isMatch = await compare(password, user.password)
+
+    if (!isMatch){
+        return {status: 'error', message: 'nepravilniy password'};
+    }
 }   
 
 const userService = {
