@@ -1,5 +1,7 @@
+// Импорт не используется, нужно убрать
 import express, { Express, Request, Response } from 'express'
 import userService from '../UserApp/userService';
+// Импорт не используется, нужно убрать
 import { SECRET_KEY } from '../config/token'
 import { sign } from 'jsonwebtoken'
 

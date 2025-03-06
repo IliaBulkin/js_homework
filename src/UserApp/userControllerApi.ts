@@ -10,13 +10,14 @@ async function authLogin(req: Request, res:Response){
         res.json(result)
         return
     }
-    
+    // ну переносили же JWT в сервис
     const token = sign(result.data, SECRET_KEY, {expiresIn: '1h'})
     res.json({status: 'success', data: token})
     
 }
 
 async function authRegister(req: Request, res: Response){
+    // ну какой await
     const data = await req.body
     const result = await userService.register(data)
     if (result.status == 'error') {

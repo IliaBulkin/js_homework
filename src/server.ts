@@ -7,7 +7,7 @@ import postRouterApi from './PostApp/postRouterApi';
 import commentRouterApi from './CommentApp/commentRouterApi';
 import cors from 'cors'
 import dotenv from 'dotenv'
-
+// ??
 const { cache } = require('ejs');
 // const express = require('express');
 const app = express()
@@ -18,7 +18,7 @@ app.set('views', path.join(__dirname, 'templates'))
 
 app.use(cookieParser())
 app.use('/static/', express.static(path.join(__dirname, 'static')))
-
+// уже не надо
 function getCurrentDate() {
     return new Date().toLocaleString(); 
 }
@@ -28,7 +28,7 @@ app.use(express.json())
 app.use(cors({
     origin: ['http://localhost:8000']
 }));
-
+// в самый верх перенеси сразу после импортов
 dotenv.config()
 
 app.use('/api/post/', postRouterApi)
@@ -43,7 +43,7 @@ app.get('/', (req: Request, res: Response) => {
     }
     res.render('index', context)
 })
-
+// тоже вверх 
 const PORT = 8000;
 app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`);

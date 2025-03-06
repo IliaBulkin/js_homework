@@ -53,5 +53,6 @@ async function createPost(data: Prisma.PostCreateInput){
 
 const productRepository = {
     getAllProducts:getAllPosts
+    // а остальные функции
 }
 export default productRepository

@@ -2,6 +2,7 @@ import { Prisma, PrismaClient } from '@prisma/client'
 
 const client = new PrismaClient()
 
+
 async function createComment(data: Prisma.CommentCreateInput) {
     try {
         const comment = await client.comment.create({ data })
