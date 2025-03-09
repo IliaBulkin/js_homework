@@ -15,29 +15,34 @@ async function login(email: string, password: string) {
 async function register(userData: User): Promise< IError | ISuccess<User> > {
     const existingUser = await userRepository.findUserByEmail(userData.email);
 
-    if (existingUser) {
-        return {status: "error", message: "User exists"};
-    }
+    if (!existingUser) {
+        const hashedPassword = await hash(userData.password, 10)
+        const newUser = {
+            id: userData.id,
+            username: userData.username,
+            email: userData.email,
+            password: hashedPassword,
+            role: userData.role
+        }
     
-    const hashedPassword = await hash(userData.password, 10)
-    const newUser = {
-        username: userData.username,
-        email: userData.email,
-        password: hashedPassword,
-        role: userData.role
+        const createdUser = await userRepository.createUser(newUser)
+        if (!createdUser){
+            return {"status": "error", message: "User creation error"}
+        }
+        const token = sign({id: createdUser.id}, SECRET_KEY, {expiresIn: '1h'})
+        return {status: "success", data: createdUser};
     }
 
-    const createdUser = await userRepository.createUser(newUser)
-    return {status: "success", data: createdUser};
+    return {status: 'error', message: 'User already exists'};
 }
 
-async function authUser(email: string, password: string) {
-    let user = await userRepository.findUserByEmail(email);
+async function authUser(userData: User) {
+    let user = await userRepository.findUserByEmail(userData.email);
     if (!user){
         return "error";
     }
 
-    const isMatch = await compare(password, user.password)
+    const isMatch = await compare(user.password, user.password)
 
     if (!isMatch){
         return {status: 'error', message: 'nepravilniy password'};
