@@ -1,7 +1,5 @@
-import express, { Express, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import userService from '../UserApp/userService';
-import { SECRET_KEY } from '../config/token'
-import { sign } from 'jsonwebtoken'
 
 function login(req: Request, res: Response){
     res.render('login')
@@ -11,7 +9,7 @@ function registration(req: Request, res: Response){
     res.render('registration')
 }
 
-async function authLogin(req: any, res: any) {
+async function authLogin(req: Request, res: Response) {
     try {
         const { username, password } = req.body;
         const user = await userService.login(username, password);
@@ -29,10 +27,10 @@ async function authLogin(req: any, res: any) {
     }
 }
 
-async function authRegistration(req: any, res: any) {
+async function authRegistration(req: Request, res: Response) {
     try {
-        const { email, password, username } = req.body;
-        const registrationResult = await userService.register({ email, password, username });
+        const data = req.body;
+        const registrationResult = await userService.register(data);
         if (registrationResult.status === "error") {
             return res.status(409).json({ message: 'User already exists' });
         } else if (registrationResult) {

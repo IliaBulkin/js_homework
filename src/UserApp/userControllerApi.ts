@@ -6,27 +6,15 @@ import { sign } from 'jsonwebtoken';
 async function authLogin(req: Request, res:Response){
     const data = await req.body
     const result = await userService.login(data.email, data.password)
-    if (result.status == 'error') {
-        res.json(result)
-        return
-    }
-    
-    const token = sign(result.data, SECRET_KEY, {expiresIn: '1h'})
-    res.json({status: 'success', data: token})
-    
+
+    res.json({status: 'success', data: result})
 }
 
 async function authRegister(req: Request, res: Response){
     const data = await req.body
     const result = await userService.register(data)
-    if (result.status == 'error') {
-        res.json(result)
-        return
-    }
 
-    const token = sign(result.data, SECRET_KEY, {expiresIn: '1h'})
-    res.json({status: 'success', data: token})
-    
+    res.json(result)
 }
 
 const userControllerApi = {

@@ -1,9 +1,12 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+// const { PrismaClient } = require('@prisma/client');
+// const prisma = new PrismaClient();
+
+import client from "../client/prismaClient"
+import { User } from './types'
 
 async function findUserByEmail(email: string) {
     try {
-        const user = await prisma.user.findUnique({
+        const user = await client.user.findUnique({
             where: {
                 email: email,
             },
@@ -15,11 +18,11 @@ async function findUserByEmail(email: string) {
     }
 }
 
-async function createUser(userData: any) {
+async function createUser(userData: User) {
     try {
         const { username, email, password, role } = userData;
 
-        const createdUser = await prisma.user.create({
+        const createdUser = await client.user.create({
             data: {
                 username,
                 email,

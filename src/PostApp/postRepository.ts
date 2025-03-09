@@ -33,7 +33,6 @@ async function getPostById(id: number){
     }
 }
 
-
 async function createPost(data: Prisma.PostCreateInput){
     try {
         let post = await client.post.create({
@@ -50,8 +49,10 @@ async function createPost(data: Prisma.PostCreateInput){
     }
 }  
 
-
-const productRepository = {
-    getAllProducts:getAllPosts
+const postRepository = {
+    getAllPosts:getAllPosts,
+    getPostById: getPostById,
+    createPost: createPost
 }
-export default productRepository
+
+export default postRepository

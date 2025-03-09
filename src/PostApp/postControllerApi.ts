@@ -1,13 +1,13 @@
-import { Request, Response } from 'express';
-import postService from './postService';
+import { postService } from "./postService";
+import { Request, Response } from "express";
 
-async function getAllPostsController(req: Request, res: Response) {
-    const context = await postService.getAllPosts(5);
-    res.json(context);
+export async function getAllPosts(req: Request, res: Response){
+    const posts = await postService.getAllPosts();
+    res.json(posts);
 }
 
 const postControllerApi = {
-    getAllPosts: getAllPostsController,
-};
+    getAllPosts: getAllPosts,
+}
 
-export default postControllerApi;
+export default postControllerApi

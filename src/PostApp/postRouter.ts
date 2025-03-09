@@ -1,8 +1,7 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import { postController } from './postController';
 
-// const express = require('express')
 const router = express.Router()
-const postController = require('../PostApp/postController')
 
 router.get('/all', postController.getAllPosts)
 router.get('/:id', postController.getPostById)
